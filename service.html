@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Layanan - TechnoVision</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <span style="color: #ffffff">Techno</span><span style="color: #4dabf7">Vision</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="service.html">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header Services -->
+  <div class="service-header">
+    <div class="container">
+      <h1>Layanan Kami</h1>
+      <p class="text-white-50">Solusi terbaik untuk kebutuhan teknologi Anda</p>
+    </div>
+  </div>
+
+  <!-- Filter Services -->
+  <div class="container my-4">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <select class="form-select" id="categoryFilter" aria-label="Filter kategori layanan">
+          <option value="all">Semua Kategori</option>
+          <option value="it-support">Dukungan IT</option>
+          <option value="consulting">Konsultasi</option>
+          <option value="training">Pelatihan</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <select class="form-select" id="durationFilter" aria-label="Filter durasi layanan">
+          <option value="all">Semua Durasi</option>
+          <option value="short">Singkat (1-3 hari)</option>
+          <option value="medium">Menengah (4-7 hari)</option>
+          <option value="long">Panjang (&gt; 7 hari)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Services List -->
+  <div class="container my-5">
+    <div class="row g-4" id="serviceContainer">
+      <!-- Layanan dihasilkan oleh JS -->
+    </div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div class="modal fade" id="bookingModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="serviceModalTitle">Pesan Layanan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="bookingForm">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <h6 id="selectedServiceName"></h6>
+                <p id="selectedServiceDesc" class="text-muted"></p>
+                <p><strong>Durasi:</strong> <span id="selectedServiceDuration"></span></p>
+                <p><strong>Harga:</strong> <span id="selectedServicePrice" class="text-primary fw-bold"></span></p>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="customerName" class="form-label">Nama Lengkap</label>
+                  <input type="text" class="form-control" id="customerName" required>
+                </div>
+                <div class="mb-3">
+                  <label for="customerEmail" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="customerEmail" required>
+                </div>
+                <div class="mb-3">
+                  <label for="customerPhone" class="form-label">Nomor Telepon</label>
+                  <input type="tel" class="form-control" id="customerPhone" required>
+                </div>
+                <div class="mb-3">
+                  <label for="bookingDate" class="form-label">Tanggal Mulai</label>
+                  <input type="date" class="form-control" id="bookingDate" required>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="specialRequest" class="form-label">Permintaan Khusus</label>
+              <textarea class="form-control" id="specialRequest" rows="3"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-primary" id="confirmBooking">Konfirmasi Pesanan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Toast -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="confirmationToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header bg-success text-white">
+        <strong class="me-auto">Pemesanan Berhasil</strong>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        <p>Terima kasih telah memesan layanan kami!</p>
+        <p>Detail pemesanan akan dikirim ke email Anda.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>TechnoVision</h5>
+          <p class="text-muted">Penyedia layanan IT profesional untuk membantu bisnis Anda berkembang.</p>
+        </div>
+        <div class="col-md-2">
+          <h5>Layanan</h5>
+          <ul class="list-unstyled">
+            <li><a href="service.html" class="text-white">Dukungan IT</a></li>
+            <li><a href="service.html" class="text-white">Konsultasi</a></li>
+            <li><a href="service.html" class="text-white">Pelatihan</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h5>Perusahaan</h5>
+          <ul class="list-unstyled">
+            <li><a href="about.html" class="text-white">Tentang Kami</a></li>
+            <li><a href="contact.html" class="text-white">Kontak</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Newsletter</h5>
+          <p class="text-muted">
+            Berlangganan untuk mendapatkan info teknologi terbaru dan tips IT.
+          </p>
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Email Anda" />
+            <button class="btn btn-primary" type="button">Berlangganan</button>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-6">
+          <p class="mb-0">&copy; 2023 TechnoVision. All Rights Reserved.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <a href="https://www.facebook.com/" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://x.com/?lang=en-id" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.instagram.com/" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="service.js"></script>
+</body>
+
+</html>
